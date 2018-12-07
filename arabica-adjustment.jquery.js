@@ -73,14 +73,18 @@
 				if (!_isDrag) return;
 				_isDrag = false;
 			},
+			goto: function(left, callback) {
+				_target.css('left', left);
+				if (typeof callback === 'function') {
+					callback.call();
+				}
+			},
 			reset: function() {
 				if (_isDrag) {
 					_isDrag = false;
 				}
 				_complete = 0;
 				_target.css('left', 0);
-				_this.val(_min);
-				_label.find('.arabica-adjustment-value').text(_min)
 			},
 			getComplete: function() {
 				return _complete;
@@ -88,7 +92,13 @@
 		};
 	};
 
-	$.fn.adjustment = function(params) {
+	function setValue(value) {
+		if (isNaN(parseInt(value))) {
+			return false;
+		}
+	}
+
+	$.fn.adjustment = function(params, value) {
 		_this = this;
 		if (!_this.is('input[type=number][max]')) {
 			return _this;
@@ -96,10 +106,26 @@
 
 		if (typeof params === 'string' && typeof _btn !== 'undefined') {
 			switch (params) {
+				case 'set':
+					var increment;
+					if (!isNaN(parseInt(value)) && parseInt(value) <= _max && parseInt(value) >= _min && typeof _btnMovement === 'object') {
+						_this.val(parseInt(value));
+						increment = (_scale.width() - _btn.width()) / (_max - _min);
+						_btnMovement.goto(increment * (value - _min));
+						if (_label.find('span.arabica-adjustment-value').length) {
+							_label.find('span.arabica-adjustment-value').text(value);
+						} else {
+							$('<span class="arabica-adjustment-value">' + value + '</span>').appendTo(_label);
+						}
+					}
+
+					break;
 				case 'reset':
 					_this.val('');
-					if (typeof _btnMovement === 'object' && typeof _btnMovement.reset === 'function') {
+					if (typeof _btnMovement === 'object') {
 						_btnMovement.reset();
+						_this.val(_min);
+						_label.find('.arabica-adjustment-value').text(_min);
 					}
 					break;
 			}
@@ -118,7 +144,7 @@
 		_adjustment = $('<div class="arabica-adjustment-wrapper"></div>')
 					  .css({
 					  	  'width': '100%',
-					  	  'padding': '30px 0',
+					  	  'padding': '20px 0',
 					  });
 
 		_label = $('label[for=' + _this.attr('id') + ']').length ? $('label[for=' + _this.attr('id') + ']') : $('<label for="' + _this.attr('id') + '"></label>').insertBefore(_adjustment);
@@ -196,6 +222,5 @@
 				_this.val(value);
 			});
 		});
-
 	};
 });
