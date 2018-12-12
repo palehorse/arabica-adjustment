@@ -199,7 +199,7 @@
 				var complete = _btnMovement.getComplete(),
 					increment = (_scale.width() - _btn.width()) / (_max - _min),
 					rest = complete % increment,
-					value = (rest > (increment / 2)) ? ((complete - rest) / increment) + 1 : (complete - rest) / increment;
+					value = (rest > (increment / 2)) ? Math.round((complete - rest) / increment) + 1 : Math.round((complete - rest) / increment);
 				if (_label.find('span.arabica-adjustment-value').length) {
 					_label.find('span.arabica-adjustment-value').text(value);
 				} else {
