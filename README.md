@@ -40,5 +40,5 @@ $('input[type=number]').adjustment('set', 5);
 ```
 #### 重設
 ```javascript
-$('input[type=number]').adjustment('set');
+$('input[type=number]').adjustment('reset');
 ```
