@@ -17,3 +17,28 @@ require('arabica-adjustment/arabica-adjustment.jquery.js');
 ```
 ## Demo
 [Demo on jsFiddle](https://jsfiddle.net/Palehorse/3qon58g0/27/)
+## 使用方法
+#### HTML
+```html
+<!-- type須設定為number -->
+<!-- max和min是必須設定的屬性 -->
+<input type="number" max=10 min=1 />
+```
+#### JavaScript
+```javascript
+$('input[type=number]').adjustment();
+```
+#### 隨時顯示數值
+```html
+<label for="adjustment">目前數值：</label>
+<input id="adjustment" type="number" max=10 min=1 />
+```
+## Callbacks
+#### 設定數值
+```javascript
+$('input[type=number]').adjustment('set', 5);
+```
+#### 重設
+```javascript
+$('input[type=number]').adjustment('set');
+```
