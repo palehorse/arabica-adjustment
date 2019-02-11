@@ -1,0 +1,19 @@
+## arabica-adjustment
+把數字輸入框塑造成圖形化的控制桿
+## 前置安裝
+    jQuery
+## 安裝
+1.用npm指令安裝
+```sh
+npm install arabica-adjustment
+```
+2.用html語法引入
+```html
+<script src="arabica-adjustment/arabica-adjustment.jquery.js"></script>
+```
+#### Vue
+```javascript
+require('arabica-adjustment/arabica-adjustment.jquery.js');
+```
+## Demo
+[Demo on jsFiddle](https://jsfiddle.net/Palehorse/3qon58g0/27/)
